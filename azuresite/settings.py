@@ -25,13 +25,14 @@ SECRET_KEY = '-^rq(x*d--6_#635*j84d5(fz9@-3(9vdr_s$9+^@cw08dq(ja'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1']
 
 
 # Application definition
 
 INSTALLED_APPS = [
     'polls.apps.PollsConfig',
+    'todo.apps.TodoConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -76,8 +77,19 @@ WSGI_APPLICATION = 'azuresite.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        #'ENGINE': 'django.db.backends.sqlite3',
+        #'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'sql_server.pyodbc',
+        'NAME': 'mydb',
+        'USER': 'uehara@djangoserver1',
+        'PASSWORD': 'Nwgh2018',
+        'HOST': 'djangoserver1.database.windows.net',
+        'PORT': '',
+
+        'OPTIONS': {
+            'driver': 'ODBC Driver 13 for SQL Server',
+        },
+    },
     }
 }
 
@@ -104,9 +116,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ja'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Tokyo'
 
 USE_I18N = True
 
@@ -119,3 +131,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static')
+]
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+MEDIA_URL = '/media/'
+
+LOGIN_URL = 'login'
